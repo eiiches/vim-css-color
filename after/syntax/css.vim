@@ -9,6 +9,11 @@ if !has("gui_running") && &t_Co != 256
 	finish
 endif
 
+if !has('python') && !has('python3')
+	echoerr 'vim-css-color: Python interface not available. See :help +python or +python3.'
+	finish
+endif
+
 " HACK modify cssDefinition to add @cssColors to its contains
 redir => s:olddef
 silent! syn list cssDefinition
