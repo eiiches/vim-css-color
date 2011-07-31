@@ -30,9 +30,9 @@ endfunction
 
 function! csscolor#is_syntax_exist(pattern, group)
 	redir => s:currentmatch
-	silent! exe 'syn list' group
+	silent! exe 'syn list' a:group
 	redir END
-	return s:currentmatch !~ a:pattern.'\/'
+	return s:currentmatch =~ '/'.escape(a:pattern, '\').'/'
 endfunction
 
 function! csscolor#add_syntax(color, type, pattern, group)
@@ -43,7 +43,7 @@ endfunction
 
 function! csscolor#add_syntax_match(color, pattern)
 	let group = substitute(a:color, '^#', 'cssColor', '')
-	if csscolor#is_syntax_exist(a:pattern, group)
+	if !csscolor#is_syntax_exist(a:pattern, group)
 		call csscolor#add_syntax(a:color, 'match', '/'.a:pattern.'/', group)
 	endif
 endfunction
@@ -63,10 +63,10 @@ function! csscolor#colorize_line(where)
 		if len(found) == 0 | break | endif
 
 		if found[0] =~ '#\x\{6}$'
-			call csscolor#add_syntax_match(found[0], found[0])
+			call csscolor#add_syntax_match(found[0], found[0].'\>')
 		elseif found[0] =~ '#\x\{3}$'
 			let color = substitute(found[0], '\(\x\)\(\x\)\(\x\)', '\1\1\2\2\3\3', '')
-			call csscolor#add_syntax_match(color, found[0])
+			call csscolor#add_syntax_match(color, found[0].'\>')
 		endif
 	endfor
 
