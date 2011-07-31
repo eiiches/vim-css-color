@@ -81,7 +81,8 @@ class CSSColor(object): # {{{
     @staticmethod
     @memoized
     def rgb_to_index(rgb):
-        index, rgb_best = min(((i, c) for i, c in enumerate(CSSColor.colortable)), key=lambda x: CSSColor.diff(x[1], rgb))
+        index, rgb_best = min(((i, c) for i, c in enumerate(CSSColor.colortable)),
+                              key=lambda x: CSSColor.diff(x[1], rgb))
         return index
 # }}}
 
