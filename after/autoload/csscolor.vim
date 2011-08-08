@@ -11,21 +11,25 @@ set cpo&vim
 function! csscolor#initialize()
 	let pycode = globpath(&rtp, 'autoload/csscolor.py')
 	if has('python')
-		execute 'pyfile' pycode
+		let s:pyfile = 'pyfile'
+		let s:python = 'python'
 	elseif has('python3')
-		execute 'py3file' pycode
+		let s:pyfile = 'py3file'
+		let s:python = 'python3'
 	else
 		echoerr 'Python interface is not available.'
+		finish
 	endif
+	execute s:pyfile pycode
 endfunction
 call csscolor#initialize()
 
 function! csscolor#percentage_to_code(r, g, b)
-	execute "python VimCSSColor.percentage_to_code('".a:r."','".a:g."','".a:b."')"
+	execute s:python "VimCSSColor.percentage_to_code('".a:r."','".a:g."','".a:b."')"
 endfunction
 
 function! csscolor#add_highlight(group, color)
-	execute "python VimCSSColor.add_highlight('".a:group."', '".a:color."')"
+	execute s:python "VimCSSColor.add_highlight('".a:group."', '".a:color."')"
 endfunction
 
 function! csscolor#is_syntax_exist(pattern, group)

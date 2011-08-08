@@ -72,7 +72,7 @@ class CSSColor(object): # {{{
         elif 233 <= index < 254:
             return [8+(index-232)*0x0A]*3
 
-    colortable = [index_to_rgb(color) for color in range(0, 254)]
+    colortable = list(map(index_to_rgb, range(0, 254)))
 
     @staticmethod
     def diff(rgb1, rgb2):
