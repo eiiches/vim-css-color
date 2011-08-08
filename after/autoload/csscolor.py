@@ -116,7 +116,7 @@ class VimCSSColor(object):
         vim.command('syntax cluster cssColors add={group}'.format(group=group))
         VimCSSColor.add_highlight(group, color)
 
-    w3c_colors = [
+    w3c_colors = [ # {{{
         ('#800000', 'maroon'),
         ('#FF0000', 'red'),
         ('#FFA500', 'orange'),
@@ -134,9 +134,8 @@ class VimCSSColor(object):
         ('#000000', 'black'),
         ('#C0C0C0', 'silver'),
         ('#808080', 'gray'),
-    ]
-
-    named_colors = [
+    ] # }}}
+    named_colors = [ # {{{
         ('#F0F8FF', 'AliceBlue'),
         ('#FAEBD7', 'AntiqueWhite'),
         ('#7FFFD4', 'Aquamarine'),
@@ -267,10 +266,11 @@ class VimCSSColor(object):
         ('#F5DEB3', 'Wheat'),
         ('#F5F5F5', 'WhiteSmoke'),
         ('#9ACD32', 'YellowGreen'),
-    ]
+    ] # }}}
 
     @staticmethod
     def define_named_colors():
         for color, name in chain(VimCSSColor.w3c_colors, VimCSSColor.named_colors):
             VimCSSColor.add_syntax_keyword(color, name)
 
+# vim: fdm=marker:fmr={{{,}}}
