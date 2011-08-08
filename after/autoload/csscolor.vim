@@ -57,6 +57,10 @@ function! csscolor#add_syntax_keyword(color, name)
 	call csscolor#add_syntax(a:color, 'keyword', a:name, group)
 endfunction
 
+function! csscolor#define_named_colors()
+	execute s:python "VimCSSColor.define_named_colors()"
+endfunction
+
 function! csscolor#colorize_line(where)
 	let line = getline(a:where)
 
