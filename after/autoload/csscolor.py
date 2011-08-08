@@ -74,18 +74,18 @@ class CSSColor(object): # {{{
         elif 233 <= index < 254:
             return [8+(index-232)*0x0A]*3
 
-    colortable = list(map(index_to_rgb, range(0, 254)))
-
-    @staticmethod
-    def diff(rgb1, rgb2):
-        return sum(pow(a-b,2) for a, b in zip(rgb1, rgb2))
+    colortable = list(enumerate(map(index_to_rgb, range(0, 254))))
 
     @staticmethod
     @memoized
     def rgb_to_index(rgb):
-        index, rgb_best = min(((i, c) for i, c in enumerate(CSSColor.colortable)),
-                              key=lambda x: CSSColor.diff(x[1], rgb))
-        return index
+        def diff(color):
+            r = color[1][0]-rgb[0]
+            g = color[1][1]-rgb[1]
+            b = color[1][2]-rgb[2]
+            return r*r + g*g + b*b
+        best = min((color for color in CSSColor.colortable), key=diff)
+        return best[0]
 # }}}
 
 import vim
