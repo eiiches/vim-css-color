@@ -68,11 +68,11 @@ class CSSColor(object): # {{{
 
         if index < 16:
             return basic16[index]
-        elif 16 <= index < 233:
+        elif 16 <= index < 232:
             index -= 16
             return [values[(index//36)%6], values[(index//6)%6], values[index%6]]
-        elif 233 <= index < 254:
-            return [8+(index-232)*0x0A]*3
+        elif 232 <= index < 256:
+            return [8+(index-232)*10]*3
 
     colortable = list(enumerate(map(index_to_rgb, range(0, 254))))
 
